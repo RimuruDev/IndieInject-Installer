@@ -46,7 +46,7 @@ namespace IndieInject.Editor.Installer
         public static void ShowWindow()
         {
             const float width = 400f;
-            const float height = 266f;
+            const float height = 300;
 
             var window = CreateInstance<IndieInjectInstaller>();
             window.titleContent = new GUIContent("IndieInject Installer");
@@ -60,7 +60,8 @@ namespace IndieInject.Editor.Installer
         {
             if (backgroundTexture != null)
             {
-                GUI.DrawTexture(new Rect(0, 0, position.width, position.height), backgroundTexture, ScaleMode.StretchToFill);
+                GUI.DrawTexture(new Rect(0, 0, position.width, position.height), backgroundTexture,
+                    ScaleMode.StretchToFill);
             }
 
             GUILayout.Space(20);
@@ -93,6 +94,19 @@ namespace IndieInject.Editor.Installer
             if (GUILayout.Button("Install", buttonStyle, GUILayout.Width(100), GUILayout.Height(40)))
             {
                 InstallIndieInject();
+            }
+
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            GUILayout.Space(10);
+
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+
+            if (GUILayout.Button("Uninstall", buttonStyle, GUILayout.Width(100), GUILayout.Height(40)))
+            {
+                UninstallIndieInject();
             }
 
             GUILayout.FlexibleSpace();
@@ -140,6 +154,20 @@ namespace IndieInject.Editor.Installer
 
             AssetDatabase.Refresh();
             EditorUtility.DisplayDialog("Success", "IndieInject has been installed successfully!", "OK");
+        }
+
+        private static void UninstallIndieInject()
+        {
+            if (Directory.Exists(FinalFolderPath))
+            {
+                Directory.Delete(FinalFolderPath, true);
+                AssetDatabase.Refresh();
+                EditorUtility.DisplayDialog("Success", "IndieInject has been uninstalled successfully!", "OK");
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Error", "IndieInject is not installed.", "OK");
+            }
         }
     }
 }
