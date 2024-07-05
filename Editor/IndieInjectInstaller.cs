@@ -30,6 +30,13 @@ namespace IndieInject.Editor.Installer
         [InitializeOnLoadMethod]
         private static void Init()
         {
+            EditorApplication.update += ShowWindowOnStartup;
+        }
+
+        private static void ShowWindowOnStartup()
+        {
+            EditorApplication.update -= ShowWindowOnStartup;
+
             if (!Directory.Exists(FinalFolderPath))
             {
                 ShowWindow();
