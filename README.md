@@ -2,6 +2,10 @@
 
 Добро пожаловать в IndieInject Installer! Этот пакет позволяет легко устанавливать и обновлять плагин IndieInject для Unity.
 
+<p align="center">
+<img width="429" alt="image" src="https://github.com/RimuruDev/IndieInject-Installer/assets/85500556/2cec0396-bbc2-460d-8f8a-0578e44a11f6">
+</p>
+
 ## Установка
 
 ### Вариант 1: Установка через зависимости
