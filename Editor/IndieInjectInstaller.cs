@@ -12,6 +12,7 @@ using System.IO;
 using System.Net;
 using UnityEditor;
 using UnityEngine;
+using System.Diagnostics.CodeAnalysis;
 
 namespace IndieInject.Editor.Installer
 {
@@ -23,6 +24,7 @@ namespace IndieInject.Editor.Installer
         private const string ExtractPath = "Assets/Plugins";
         private const string ExtractedFolderPath = "Assets/Plugins/IndieInject-main";
         private const string FinalFolderPath = "Assets/Plugins/IndieInject";
+        private const string BackgroundPath = "_Background";
         private Texture2D backgroundTexture;
 
         [InitializeOnLoadMethod]
@@ -36,10 +38,11 @@ namespace IndieInject.Editor.Installer
 
         private void OnEnable()
         {
-            backgroundTexture = Resources.Load<Texture2D>("_Background");
+            backgroundTexture = Resources.Load<Texture2D>(BackgroundPath);
         }
 
-        [MenuItem("IndieInject/IndieInject Package Installer")]
+        [MenuItem("IndieInject/IndieInject Package Installer", false, -10)]
+        [SuppressMessage("ReSharper", "PossibleLossOfFraction")]
         public static void ShowWindow()
         {
             const float width = 400f;
@@ -57,8 +60,7 @@ namespace IndieInject.Editor.Installer
         {
             if (backgroundTexture != null)
             {
-                GUI.DrawTexture(new Rect(0, 0, position.width, position.height), backgroundTexture,
-                    ScaleMode.StretchToFill);
+                GUI.DrawTexture(new Rect(0, 0, position.width, position.height), backgroundTexture, ScaleMode.StretchToFill);
             }
 
             GUILayout.Space(20);
