@@ -17,7 +17,7 @@ namespace IndieInject.Editor.Installer
 {
     public sealed class IndieInjectInstaller : EditorWindow
     {
-        [MenuItem("IndieInject/IndieInject Package Installer")]
+        [MenuItem("IndieInject/IndieInject Package Installer", false, -10)]
         public static void ShowWindow() => GetWindow<IndieInjectInstaller>("IndieInject Installer");
 
         private void OnGUI()
@@ -33,6 +33,8 @@ namespace IndieInject.Editor.Installer
             const string url = "https://github.com/RimuruDev/IndieInject/archive/refs/heads/main.zip";
             var downloadPath = Path.Combine(Application.dataPath, "Plugins", "IndieInject.zip");
             var extractPath = Path.Combine(Application.dataPath, "Plugins");
+            var extractedFolderPath = Path.Combine(extractPath, "IndieInject-main");
+            var finalFolderPath = Path.Combine(extractPath, "IndieInject");
 
             if (!Directory.Exists(extractPath))
             {
@@ -46,6 +48,16 @@ namespace IndieInject.Editor.Installer
 
             System.IO.Compression.ZipFile.ExtractToDirectory(downloadPath, extractPath);
             File.Delete(downloadPath);
+
+            if (Directory.Exists(extractedFolderPath))
+            {
+                if (Directory.Exists(finalFolderPath))
+                {
+                    Directory.Delete(finalFolderPath, true);
+                }
+
+                Directory.Move(extractedFolderPath, finalFolderPath);
+            }
 
             AssetDatabase.Refresh();
             EditorUtility.DisplayDialog("Success", "IndieInject has been installed successfully!", "OK");
