@@ -34,8 +34,15 @@ namespace IndieInject.Editor.Installer
             var downloadPath = Path.Combine(Application.dataPath, "Plugins", "IndieInject.zip");
             var extractPath = Path.Combine(Application.dataPath, "Plugins");
 
-            var client = new WebClient();
-            client.DownloadFile(url, downloadPath);
+            if (!Directory.Exists(extractPath))
+            {
+                Directory.CreateDirectory(extractPath);
+            }
+
+            using (var client = new WebClient())
+            {
+                client.DownloadFile(url, downloadPath);
+            }
 
             System.IO.Compression.ZipFile.ExtractToDirectory(downloadPath, extractPath);
             File.Delete(downloadPath);
