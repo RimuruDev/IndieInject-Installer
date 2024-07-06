@@ -98,7 +98,7 @@ namespace IndieInject.Editor.Installer
                 fontSize = 12
             };
 
-            if (GUILayout.Button("Install", buttonStyle, GUILayout.Width(100), GUILayout.Height(40)))
+            if (GUILayout.Button("Install/Update", buttonStyle, GUILayout.Width(100), GUILayout.Height(40)))
             {
                 InstallIndieInject();
             }
